@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body onload="startGame()">
+<script>
+
+var myGamePiece;
+
+function startGame() {
+    myGamePiece = new component(30, 30, "red", 10, 120);
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 800;
+        this.canvas.height = 500;
+        this.canvas.style.cursor = "none"; //hide the original cursor
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateGameArea, 20);
+        window.addEventListener('mousemove', function (meow) {
+            myGameArea.x = meow.pageX;
+            myGameArea.y = meow.pageY;
+        })
+        window.addEventListener('keydown', function (e) {
+            console.log(e.keyCode);
+            myGameArea.key = e.keyCode;
+
+        })
+    },
+    clear : function(){
+        //this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+function component(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.color=color;
+    this.x = x;
+    this.y = y;
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.width,0,Math.PI*2);
+        ctx.fill();
+    }
+
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    if (myGameArea.x && myGameArea.y) {
+        myGamePiece.x = myGameArea.x;
+        myGamePiece.y = myGameArea.y;
+    }
+    console.log(myGameArea.key)
+    if (myGameArea.key == 66) {
+    	console.log("b is pressed");
+        myGamePiece.color="blue"
+    }
+    if (myGameArea.key == 82) {
+    	console.log("r is pressed");
+        myGamePiece.color="red"
+    }
+
+    if (myGameArea.key == 89) {
+      console.log("y is pressed");
+        myGamePiece.color="yellow"
+    }
+
+    if (myGameArea.key == 71) {
+      console.log("g is pressed");
+      myGamePiece.color="green"
+    }
+    if (myGameArea.key == 40) {
+      console.log("down is pressed");
+      myGamePiece.width-= 2
+      if(myGamePiece.width < 0){myGamePiece.width = 0}
+      myGameArea.key=69
+    }
+    if (myGameArea.key == 38) {
+      console.log("up is pressed");
+      myGamePiece.width+= 2
+      myGameArea.key=69
+    }
+    if (myGameArea.key == 32) {
+      console.log("spacebar is pressed");
+      myGameArea.canvas.width = myGameArea.canvas.width
+      myGameArea.key=69
+    }
+    myGamePiece.update();
+
+}
+
+</script>
+<p>Move the cursor inside the canvas to draw.</p>
+</body>
+</html>
