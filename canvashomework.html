@@ -88,6 +88,7 @@ function updateGameArea() {
     if (myGameArea.key == 40) {
       console.log("down is pressed");
       myGamePiece.width-= 2
+      
       if(myGamePiece.width < 0){myGamePiece.width = 0}
       myGameArea.key=69
     }
@@ -107,5 +108,14 @@ function updateGameArea() {
 
 </script>
 <p>Move the cursor inside the canvas to draw.</p>
+<ul>
+<li>Press 'r' for red</li>
+<li>Press 'y' for yellow</li>
+<li>Press 'g' for green</li>
+<li>Press 'b' for blue</li>
+</ul>
+<p>Press 'arrow up' to make your pen bigger</p>
+<p>Press 'arrow down' to make your pen smaller</p>
+<p>Press 'space' to clear the canvas</p>
 </body>
 </html>
